@@ -116,7 +116,7 @@ class AllProductsView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.search_handler = self.get_search_handler(
-            [], self.request.GET, request.get_full_path())
+            self.request.GET, request.get_full_path())
         return super(AllProductsView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -160,7 +160,8 @@ class ProductCategoryView(TemplateView):
             return redirect
 
         self.search_handler = self.get_search_handler(
-            self.get_categories(), request.GET, request.get_full_path())
+            request.GET, request.get_full_path(),
+            categories=self.get_categories())
 
         return super(ProductCategoryView, self).get(request, *args, **kwargs)
 

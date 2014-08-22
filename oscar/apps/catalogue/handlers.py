@@ -17,7 +17,7 @@ class ProductSearchHandler(SearchHandler):
     model_whitelist = [Product]
     paginate_by = settings.OSCAR_PRODUCTS_PER_PAGE
 
-    def __init__(self, categories, request_data, full_path):
+    def __init__(self, request_data, full_path, categories=None):
         self.categories = categories
         super(ProductSearchHandler, self).__init__(request_data, full_path)
 
@@ -40,7 +40,7 @@ class SimpleProductSearchHandler(MultipleObjectMixin):
     """
     paginate_by = settings.OSCAR_PRODUCTS_PER_PAGE
 
-    def __init__(self, categories, request_data, *args, **kwargs):
+    def __init__(self, request_data, full_path, categories=None):
         self.categories = categories
         self.kwargs = {'page': request_data.get('page', 1)}
         self.object_list = self.get_queryset()

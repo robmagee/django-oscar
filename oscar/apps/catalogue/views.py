@@ -110,14 +110,17 @@ class ProductDetailView(DetailView):
             '%s/detail.html' % (self.template_folder)]
 
 
-class AllProductsView(TemplateView):
+class CatalogueView(TemplateView):
+    """
+    Browse all products in the catalogue
+    """
     context_object_name = "products"
     template_name = 'catalogue/browse.html'
 
     def get(self, request, *args, **kwargs):
         self.search_handler = self.get_search_handler(
             self.request.GET, request.get_full_path())
-        return super(AllProductsView, self).get(request, *args, **kwargs)
+        return super(CatalogueView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = {}

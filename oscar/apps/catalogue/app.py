@@ -8,7 +8,7 @@ from oscar.apps.catalogue.reviews.app import application as reviews_app
 class BaseCatalogueApplication(Application):
     name = 'catalogue'
     detail_view = get_class('catalogue.views', 'ProductDetailView')
-    all_products_view = get_class('catalogue.views', 'AllProductsView')
+    catalogue_view = get_class('catalogue.views', 'CatalogueView')
     category_view = get_class('catalogue.views', 'ProductCategoryView')
     range_view = get_class('offer.views', 'RangeDetailView')
 
@@ -16,7 +16,7 @@ class BaseCatalogueApplication(Application):
         urlpatterns = super(BaseCatalogueApplication, self).get_urls()
         urlpatterns += [
             # Has different urlname for legacy reasons
-            url(r'^$', self.all_products_view.as_view(), name='index'),
+            url(r'^$', self.catalogue_view.as_view(), name='index'),
             url(r'^(?P<product_slug>[\w-]*)_(?P<pk>\d+)/$',
                 self.detail_view.as_view(), name='detail'),
             url(r'^category/(?P<category_slug>[\w-]+(/[\w-]+)*)_(?P<pk>\d+)/$',

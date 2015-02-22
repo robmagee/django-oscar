@@ -59,11 +59,19 @@ Install Oscar and its dependencies within a virtualenv:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/tangentlabs/django-oscar.git
+    $ git clone https://github.com/django-oscar/django-oscar.git
     $ cd django-oscar
     $ mkvirtualenv oscar  # needs virtualenvwrapper
     (oscar) $ make sandbox
     (oscar) $ sites/sandbox/manage.py runserver
+
+.. warning::
+    
+    Note, these instructions will install the head of Oscar's 'master' branch,
+    not an official release. Occasionally the sandbox installation process
+    breaks while support for a new version of Django is being added (often due
+    dependency conflicts with 3rd party libraries). Please ask on the mailing
+    list if you have problems.
 
 If you do not have ``mkvirtualenv``, then replace that line with:
 
@@ -117,8 +125,8 @@ The customisations on top of core Oscar include:
 * Payment with PayPal Express using django-oscar-paypal_.
 * Payment with bankcards using Datacash using django-oscar-datacash_.
 
-.. _django-oscar-paypal: https://github.com/tangentlabs/django-oscar-paypal
-.. _django-oscar-datacash: https://github.com/tangentlabs/django-oscar-datacash
+.. _django-oscar-paypal: https://github.com/django-oscar/django-oscar-paypal
+.. _django-oscar-datacash: https://github.com/django-oscar/django-oscar-datacash
 
 .. note::
 
@@ -167,4 +175,4 @@ Now build the demo site:
 The demo (initialised with a sample set of products) will be available
 at: http://localhost:8000.
 
-.. _django-oscar-stores: https://github.com/tangentlabs/django-oscar-stores
+.. _django-oscar-stores: https://github.com/django-oscar/django-oscar-stores

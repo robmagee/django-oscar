@@ -10,10 +10,11 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-from oscar import get_version
-
 PROJECT_DIR = os.path.dirname(__file__)
 PY3 = sys.version_info >= (3, 0)
+
+sys.path.append(os.path.join(PROJECT_DIR, 'src'))
+from oscar import get_version
 
 # Change to the current directory to solve an issue installing Oscar on the
 # Vagrant machine.
@@ -22,30 +23,31 @@ if PROJECT_DIR:
 
 setup(name='django-oscar',
       version=get_version().replace(' ', '-'),
-      url='https://github.com/tangentlabs/django-oscar',
+      url='https://github.com/django-oscar/django-oscar',
       author="David Winterbottom",
-      author_email="david.winterbottom@tangentlabs.co.uk",
+      author_email="david.winterbottom@gmail.com",
       description="A domain-driven e-commerce framework for Django",
       long_description=open(os.path.join(PROJECT_DIR, 'README.rst')).read(),
       keywords="E-commerce, Django, domain-driven",
       license='BSD',
       platforms=['linux'],
-      packages=find_packages(exclude=["sandbox*", "tests*"]),
+      package_dir={'': 'src'},
+      packages=find_packages('src'),
       include_package_data=True,
       install_requires=[
-          'django>=1.6.6,<1.8',
+          'django>=1.6.8,<1.8',
           # PIL is required for image fields, Pillow is the "friendly" PIL fork
-          'pillow>=1.7.8,<2.5',
+          'pillow>=1.7.8,<=2.7',
           # We use the ModelFormSetView from django-extra-views for the basket
           # page. 0.6.5 pins version of six, which causes issues:
           # https://github.com/AndrewIngram/django-extra-views/pull/85
           'django-extra-views>=0.2,<0.6.5',
           # Search support
-          'django-haystack>=2.2.0,<2.3.0',
+          'django-haystack>=2.3.1,<2.4.0',
           # Treebeard is used for categories
-          'django-treebeard==2.0',
+          'django-treebeard==3.0',
           # Sorl is used as the default thumbnailer
-          'sorl-thumbnail==11.12.1b',
+          'sorl-thumbnail>=11.12.1b,<=12.2',
           # Babel is used for currency formatting
           'Babel>=1.0,<1.4',
           # Oscar's default templates use compressor (but you can override
@@ -56,17 +58,20 @@ setup(name='django-oscar',
           # For manipulating search URLs
           'purl>=0.7',
           # For phone number field
-          'phonenumbers>=5.9.2,<=6.0.0a',
+          'phonenumbers>=6.3.0,<7.0.0',
           # Used for oscar.test.contextmanagers.mock_signal_receiver
           'mock>=1.0.1,<1.1',
           # Used for oscar.test.newfactories
           'factory-boy>=2.4.1,<2.5',
           # Used for automatically building larger HTML tables
           'django-tables2>=0.15.0,<0.16',
+          # Used for manipulating form field attributes in templates (eg: add
+          # a css class)
+          'django-widget-tweaks>=1.3,<1.4',
       ],
       # See http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
           'Framework :: Django',
           'Intended Audience :: Developers',

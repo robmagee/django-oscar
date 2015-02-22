@@ -31,6 +31,7 @@ def configure():
                 'django.contrib.flatpages',
                 'django.contrib.staticfiles',
                 'compressor',
+                'widget_tweaks',
                 'tests._site.model_tests_app',  # contains models we need for testing
                 'tests._site.myauth',
 
@@ -56,11 +57,14 @@ def configure():
                 'oscar.core.context_processors.metadata',
             ),
             'TEMPLATE_DIRS': (
-                location('templates'),
+                location('_site/templates'),
                 oscar.OSCAR_MAIN_TEMPLATE_DIR,
             ),
-            'TEMPLATE_LOADERS': (('django.template.loaders.cached.Loader',
-                                     global_settings.TEMPLATE_LOADERS),),
+            'TEMPLATE_LOADERS': (
+                ('django.template.loaders.cached.Loader',
+                 ['django.template.loaders.filesystem.Loader',
+                  'django.template.loaders.app_directories.Loader',
+                  'django.template.loaders.eggs.Loader']),),
             'MIDDLEWARE_CLASSES': (
                 'django.middleware.common.CommonMiddleware',
                 'django.contrib.sessions.middleware.SessionMiddleware',

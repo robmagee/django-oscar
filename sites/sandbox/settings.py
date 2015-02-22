@@ -11,12 +11,11 @@ TEMPLATE_DEBUG = True
 SQL_DEBUG = True
 
 ALLOWED_HOSTS = ['latest.oscarcommerce.com',
-                 'sandbox.oscar.tangentlabs.co.uk',
                  'master.oscarcommerce.com']
 
 # This is needed for the hosted version of the sandbox
 ADMINS = (
-    ('David Winterbottom', 'david.winterbottom@tangentlabs.co.uk'),
+    ('David Winterbottom', 'david.winterbottom@gmail.com'),
 )
 EMAIL_SUBJECT_PREFIX = '[Oscar sandbox] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -313,6 +312,7 @@ INSTALLED_APPS = [
     'template_timings_panel',
     'compressor',       # Oscar's templates use compressor
     'apps.gateway',     # For allowing dashboard access
+    'widget_tweaks',
 ]
 from oscar import get_core_apps
 INSTALLED_APPS = INSTALLED_APPS + get_core_apps()
@@ -332,6 +332,15 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 APPEND_SLASH = True
+
+# ====================
+# Messages contrib app
+# ====================
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 # Haystack settings
 HAYSTACK_CONNECTIONS = {
@@ -424,11 +433,7 @@ OSCAR_ORDER_STATUS_CASCADE = {
 # We default to using CSS files, rather than the LESS files that generate them.
 # If you want to develop Oscar's CSS, then set USE_LESS=True and
 # COMPRESS_ENABLED=False in your settings_local module and ensure you have
-# 'lessc' installed.  You can do this by running:
-#
-#    pip install -r requirements_less.txt
-#
-# which will install node.js and less in your virtualenv.
+# 'lessc' installed.
 
 USE_LESS = False
 
